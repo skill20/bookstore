@@ -1,5 +1,6 @@
 package com.tong.bookstore.main;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 
 import com.tong.bookstore.bookstore.BookStoreFragment;
 import com.tong.bookstore.MarketFragment;
+import com.tong.bookstore.database.SQLiteHelper;
 import com.tong.bookstore.mybook.MyBookFragment;
 import com.tong.bookstore.R;
 import com.tong.bookstore.SettingFragment;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myBookFragment = new MyBookFragment();
         fragmentManager.beginTransaction().replace(R.id.fragment_layout, myBookFragment).commit();
         tempFragment = myBookFragment;
+        SQLiteHelper.getDB(getApplicationContext());
     }
 
     private void findViewByIds() {
@@ -136,6 +139,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 transaction.hide(from).show(to).commit();
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SQLiteDatabase db = SQLiteHelper.getDB(getApplicationContext());
+        if (db != null) {
+            db.close();
         }
     }
 }

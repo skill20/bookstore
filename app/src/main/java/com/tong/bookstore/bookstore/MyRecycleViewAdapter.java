@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tong.bookstore.R;
+import com.tong.bookstore.database.DataOperator;
+import com.tong.bookstore.database.SQLiteHelper;
 import com.tong.bookstore.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
                 @Override
                 public void onClick(View v) {
                     ToastUtil.showToast(v.getContext(), bookBean.desc);
+                    new DataOperator(SQLiteHelper.getDB(v.getContext().getApplicationContext())).insert(bookBean.imageId,bookBean.desc);
                 }
             });
 
