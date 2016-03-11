@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookStore</string>
+    <string name="nav_book">My Book</string>
+    <string name="nav_store">Book Store</string>
+    <string name="nav_">My Book</string>
+    <string name="nav_market">Market</string>
+</resources>
