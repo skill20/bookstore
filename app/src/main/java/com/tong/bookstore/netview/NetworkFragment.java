@@ -9,10 +9,10 @@ import android.view.ViewStub;
 
 import com.tong.bookstore.BaseFragment;
 import com.tong.bookstore.R;
-import com.tong.bookstore.util.NetworkHelper;
+import com.tong.bookstore.util.NetworkUtil;
 
 /**
- * @author qingqing.wang
+ * @author tong.zhang
  * @version 1.0.0
  * @date 2016-03-11 13:54
  * @since 5.3.0
@@ -103,7 +103,7 @@ public abstract class NetworkFragment extends BaseFragment implements NetWorkInt
     }
 
     private boolean canRetry() {
-        if (!NetworkHelper.sharedHelper().isNetworkAvailable()) {
+        if (!NetworkUtil.isNetworkAvailable(getContext().getApplicationContext())) {
             showFail();
             return false;
         }

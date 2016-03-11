@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import com.tong.bookstore.R;
 
 /**
- * @author qingqing.wang
+ * @author tong.zhang
  * @version 1.0.0
  * @date 2016-03-11 14:15
  * @since 5.3.0

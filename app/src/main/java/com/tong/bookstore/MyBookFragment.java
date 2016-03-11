@@ -6,7 +6,7 @@ import android.os.Message;
 import com.tong.bookstore.netview.NetworkFragment;
 
 /**
- * @author qingqing.wang
+ * @author tong.zhang
  * @version 1.0.0
  * @date 2016-03-11 17:37
  * @since 5.3.0

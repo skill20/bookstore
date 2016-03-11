@@ -3,7 +3,7 @@ package com.tong.bookstore;
 import com.tong.bookstore.netview.NetworkFragment;
 
 /**
- * @author qingqing.wang
+ * @author tong.zhang
  * @version 1.0.0
  * @date 2016-03-11 18:36
  * @since 5.3.0
