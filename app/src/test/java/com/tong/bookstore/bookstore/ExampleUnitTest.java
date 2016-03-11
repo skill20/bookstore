@@ -1,4 +1,4 @@
-package bookstore.tong.com.bookstore;
+package com.tong.bookstore.bookstore;
 
 import org.junit.Test;
 

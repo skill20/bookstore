@@ -2,6 +2,11 @@
     <string name="app_name">BookStore</string>
     <string name="nav_book">My Book</string>
     <string name="nav_store">Book Store</string>
-    <string name="nav_">My Book</string>
     <string name="nav_market">Market</string>
+    <string name="nav_setting">Setting</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+    <string name ="no_network">Failure load,tap to refresh</string>
 </resources>

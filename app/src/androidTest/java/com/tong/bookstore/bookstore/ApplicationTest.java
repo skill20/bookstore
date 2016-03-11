@@ -1,4 +1,4 @@
-package bookstore.tong.com.bookstore;
+package com.tong.bookstore.bookstore;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

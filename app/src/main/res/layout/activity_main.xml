@@ -11,9 +11,9 @@
     <!-- Drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
-        android:layout_width="140dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginTop="?attr/actionBarSize"
+        app:headerLayout="@layout/header_nav"
         app:menu="@menu/menu_nav" />
 </android.support.v4.widget.DrawerLayout>
