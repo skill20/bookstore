@@ -22,6 +22,7 @@ public abstract class NetworkFragment extends BaseFragment implements NetWorkInt
     private View mContentView;
     private ViewStub contentStub;
     private NetworkView netView;
+    private View contentView;
 
     @Nullable
     @Override
@@ -47,7 +48,7 @@ public abstract class NetworkFragment extends BaseFragment implements NetWorkInt
 
     }
 
-    private void findViewByIds(View layout) {
+    protected void findViewByIds(View layout) {
         contentStub = (ViewStub) layout.findViewById(R.id.stub_content);
         netView = (NetworkView) layout.findViewById(R.id.net_view);
 
@@ -56,6 +57,7 @@ public abstract class NetworkFragment extends BaseFragment implements NetWorkInt
             throw new RuntimeException("network base fragment has none valid sub content layout");
         }
         contentStub.setLayoutResource(rid);
+        contentView = contentStub.inflate();
         netView.setOnNetFailClickLister(this);
 
     }
@@ -75,17 +77,19 @@ public abstract class NetworkFragment extends BaseFragment implements NetWorkInt
 
     @Override
     public void showLoading() {
+        contentView.setVisibility(View.GONE);
         netView.loading();
     }
 
     @Override
     public void showContent() {
-        contentStub.inflate();
+        contentView.setVisibility(View.VISIBLE);
         netView.setVisibility(View.GONE);
     }
 
     @Override
     public void showFail() {
+        contentView.setVisibility(View.GONE);
         netView.fail();
     }
 

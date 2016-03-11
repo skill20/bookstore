@@ -19,6 +19,7 @@ public class MarketFragment extends NetworkFragment {
 
     @Override
     protected void initViews() {
+        showLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {

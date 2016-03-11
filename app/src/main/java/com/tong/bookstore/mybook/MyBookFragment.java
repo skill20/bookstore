@@ -1,8 +1,9 @@
-package com.tong.bookstore;
+package com.tong.bookstore.mybook;
 
 import android.os.Handler;
 import android.os.Message;
 
+import com.tong.bookstore.R;
 import com.tong.bookstore.netview.NetworkFragment;
 
 /**
@@ -22,6 +23,7 @@ public class MyBookFragment extends NetworkFragment {
 
     @Override
     protected void initViews() {
+        showLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {

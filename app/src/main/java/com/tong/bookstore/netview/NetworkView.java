@@ -41,7 +41,8 @@ public class NetworkView extends FrameLayout {
 
     public void loading() {
         loadView.setVisibility(VISIBLE);
-        failView.setVisibility(GONE);
+        if (failView != null)
+            failView.setVisibility(GONE);
     }
 
     public void fail() {
