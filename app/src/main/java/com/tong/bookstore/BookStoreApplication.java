@@ -2,6 +2,8 @@ package com.tong.bookstore;
 
 import android.app.Application;
 
+import com.tong.bookstore.log.Logger;
+import com.tong.bookstore.log.NLog;
 import com.tong.bookstore.util.NetworkHelper;
 
 /**
@@ -18,7 +20,12 @@ public class BookStoreApplication extends Application {
     }
 
     private void initAll() {
+        initLog();
         initNetwork();
+    }
+
+    private void initLog() {
+        NLog.setDebug(BuildConfig.LOG_DEBUG, Logger.VERBOSE);
     }
 
     private void initNetwork() {

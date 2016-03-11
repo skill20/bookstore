@@ -1,5 +1,8 @@
 package com.tong.bookstore;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.tong.bookstore.netview.NetworkFragment;
 
 /**
@@ -13,4 +16,21 @@ public class MarketFragment extends NetworkFragment {
     protected int getContentLayout() {
         return R.layout.fragment_market;
     }
+
+    @Override
+    protected void initViews() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessageDelayed(0, 3000);
+            }
+        }).start();
+    }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            showFail();
+        }
+    };
 }
