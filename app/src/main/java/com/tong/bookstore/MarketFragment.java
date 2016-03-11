@@ -34,4 +34,10 @@ public class MarketFragment extends NetworkFragment {
             showFail();
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

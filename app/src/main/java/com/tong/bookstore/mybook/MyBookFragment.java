@@ -76,17 +76,9 @@ public class MyBookFragment extends NetworkFragment {
         });
     }
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            showContent();
-        }
-    };
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
         queryAsyncTask.cancel(true);
     }
 }
