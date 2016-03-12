@@ -56,6 +56,7 @@ public class MyBookFragment extends NetworkFragment {
                     public void result(List<MyRecycleViewAdapter.BookBean> bookBeanList) {
                         int size = bookBeanList.size();
                         if (size == 0) {
+                            textView.setText("");
                             ToastUtil.showToast(getContext().getApplicationContext(),"no book in database,please add book first!");
                             return;
                         }

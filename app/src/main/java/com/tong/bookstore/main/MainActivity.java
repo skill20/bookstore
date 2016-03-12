@@ -1,24 +1,28 @@
 package com.tong.bookstore.main;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.tong.bookstore.bookstore.BookStoreFragment;
 import com.tong.bookstore.market.MarketFragment;
 import com.tong.bookstore.database.SQLiteHelper;
 import com.tong.bookstore.mybook.MyBookFragment;
 import com.tong.bookstore.R;
-import com.tong.bookstore.SettingFragment;
+import com.tong.bookstore.setting.SettingFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MarketFragment marketFragment;
     private SettingFragment settingFragment;
     private Fragment tempFragment = null;
+    private long lastTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mActionBarDrawerToggle.syncState();
         drawerLayout.addDrawerListener(mActionBarDrawerToggle);
         navigation.setNavigationItemSelectedListener(this);
-        navigation.setCheckedItem(R.id.nav_menu_my_book);
+        navigation.setCheckedItem(R.id.nav_menu_market);
 
         fragmentManager = getSupportFragmentManager();
         marketFragment = new MarketFragment();
@@ -72,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this,AboutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -139,6 +145,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 transaction.hide(from).show(to).commit();
             }
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers();
+            return;
+        }
+        if (System.currentTimeMillis() - lastTime < 2000) {
+            super.onBackPressed();
+        } else {
+            lastTime = System.currentTimeMillis();
+            Toast.makeText(MainActivity.this, getString(R.string.exit_point), Toast.LENGTH_SHORT).show();
         }
     }
 

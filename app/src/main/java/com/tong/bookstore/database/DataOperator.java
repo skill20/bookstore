@@ -60,4 +60,8 @@ public class DataOperator {
 
         return all;
     }
+
+    public boolean delete() {
+        return db.delete(SQLiteHelper.TABLE_NAME, null, null) > 0;
+    }
 }
