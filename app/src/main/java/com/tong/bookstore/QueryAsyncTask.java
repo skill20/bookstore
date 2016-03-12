@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.tong.bookstore.bookstore.MyRecycleViewAdapter;
 import com.tong.bookstore.database.DataOperator;
 import com.tong.bookstore.database.SQLiteHelper;
-import com.tong.bookstore.util.ToastUtil;
 
 import java.util.List;
 
@@ -23,8 +22,7 @@ public class QueryAsyncTask extends AsyncTask<Void, Void, List<MyRecycleViewAdap
 
     @Override
     protected List<MyRecycleViewAdapter.BookBean> doInBackground(Void... params) {
-        List<MyRecycleViewAdapter.BookBean> bookBeanList = new DataOperator(SQLiteHelper.getDB(context)).find();
-        return bookBeanList;
+        return new DataOperator(SQLiteHelper.getDB(context)).find();
     }
 
     @Override

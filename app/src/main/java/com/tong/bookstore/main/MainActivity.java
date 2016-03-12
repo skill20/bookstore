@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tong.bookstore.bookstore.BookStoreFragment;
-import com.tong.bookstore.MarketFragment;
+import com.tong.bookstore.market.MarketFragment;
 import com.tong.bookstore.database.SQLiteHelper;
 import com.tong.bookstore.mybook.MyBookFragment;
 import com.tong.bookstore.R;

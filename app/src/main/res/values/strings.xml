@@ -9,4 +9,6 @@
     <string name="close">close</string>
 
     <string name ="no_network">Failure load,tap to refresh</string>
+    <string name="goto_amazon">GoTO_Amazon</string>
+    <string name="query_book">Query Book</string>
 </resources>
