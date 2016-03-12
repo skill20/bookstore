@@ -19,7 +19,6 @@ import com.tong.bookstore.netview.NetworkFragment;
 public class MarketFragment extends NetworkFragment {
 
     private static final int ERROR_CODE = 0;
-    private View jumpBtn;
     private WebView webView;
     private View loadView;
     private View failView;
@@ -35,55 +34,47 @@ public class MarketFragment extends NetworkFragment {
     @Override
     protected void findViewByIds(View layout) {
         super.findViewByIds(layout);
-        jumpBtn = layout.findViewById(R.id.jump_click);
         webView = (WebView) layout.findViewById(R.id.web_view);
         loadView = layout.findViewById(R.id.loading);
         ViewStub stubFail = (ViewStub) layout.findViewById(R.id.net_fail_stub);
         failView = stubFail.inflate();
         failView.setVisibility(View.GONE);
-        jumpBtn.setOnClickListener(this);
+        startWebView();
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        int id = v.getId();
-        if (R.id.jump_click == id) {
+    private void startWebView() {
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                loadView.setVisibility(View.VISIBLE);
+            }
 
-            webView.setWebViewClient(new WebViewClient() {
-                @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                    super.onPageStarted(view, url, favicon);
-                    loadView.setVisibility(View.VISIBLE);
-                    jumpBtn.setVisibility(View.GONE);
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webView.setVisibility(View.VISIBLE);
+                failView.setVisibility(View.GONE);
+                loadView.setVisibility(View.GONE);
+                if (responseCode != ERROR_CODE) {
+                    failView.setVisibility(View.VISIBLE);
+                    webView.setVisibility(View.GONE);
                 }
+            }
 
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    super.onPageFinished(view, url);
-                    webView.setVisibility(View.VISIBLE);
-                    failView.setVisibility(View.GONE);
-                    loadView.setVisibility(View.GONE);
-                    if (responseCode != ERROR_CODE) {
-                        failView.setVisibility(View.VISIBLE);
-                        webView.setVisibility(View.GONE);
-                    }
-                }
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                responseCode = errorCode;
+            }
+        });
+        WebSettings webSettings = webView.getSettings();
+        // webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
-                @Override
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    super.onReceivedError(view, errorCode, description, failingUrl);
-                    responseCode = errorCode;
-                }
-            });
-            WebSettings webSettings = webView.getSettings();
-            // webSettings.setJavaScriptEnabled(true);
-            webSettings.setBuiltInZoomControls(true);
-            webSettings.setSupportZoom(true);
-            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-
-            webView.loadUrl(AMAZE_URL);
-        }
+        webView.loadUrl(AMAZE_URL);
     }
 
     @Override

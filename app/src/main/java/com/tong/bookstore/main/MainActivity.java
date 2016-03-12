@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setCheckedItem(R.id.nav_menu_my_book);
 
         fragmentManager = getSupportFragmentManager();
-        myBookFragment = new MyBookFragment();
-        fragmentManager.beginTransaction().replace(R.id.fragment_layout, myBookFragment).commit();
-        tempFragment = myBookFragment;
+        marketFragment = new MarketFragment();
+        fragmentManager.beginTransaction().replace(R.id.fragment_layout, marketFragment).commit();
+        tempFragment = marketFragment;
         SQLiteHelper.getDB(getApplicationContext());
     }
 

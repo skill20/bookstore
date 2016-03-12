@@ -25,9 +25,4 @@
         android:layout_gravity="center"
         android:layout="@layout/stub_net_fail" />
 
-    <Button
-        android:id="@+id/jump_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/goto_amazon" />
 </FrameLayout>
