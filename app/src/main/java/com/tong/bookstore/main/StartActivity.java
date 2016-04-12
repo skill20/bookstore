@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_REQUEST_PERMISSIONS:
-                    performCodeWithPermission("read contacts", callback, Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS);
+                    performCodeWithPermission("This app request read contacts permissions!", callback, Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS);
                     break;
 
                 case MSG_START_INTO_APP:
@@ -156,7 +156,7 @@ public class StartActivity extends AppCompatActivity {
 
             //if user disallow,notify again;
             new AlertDialog.Builder(this)
-                    .setTitle("tips")
+                    .setTitle("Tips")
                     .setMessage(permissionDes)
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
