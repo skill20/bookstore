@@ -5,6 +5,8 @@ import android.content.Intent;
 
 import com.tong.bookstore.service.BookService;
 
+import java.util.HashMap;
+
 /**
  * @author tong.zhang
  * @version 1.0.0
@@ -12,6 +14,9 @@ import com.tong.bookstore.service.BookService;
  * @since 5.3.0
  */
 public class BookStoreApplication extends Application {
+
+    private HashMap<String, String> hashMap = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,8 +27,18 @@ public class BookStoreApplication extends Application {
         initLog();
         initNetwork();
         initService();
+        initMap();
     }
 
+    private void initMap() {
+        if (hashMap == null) {
+            hashMap = new HashMap<>();
+        }
+    }
+
+    public HashMap<String, String> getHashMap() {
+        return hashMap;
+    }
 
     private void initService() {
         startService(new Intent(getApplicationContext(), BookService.class));

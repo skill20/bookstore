@@ -1,6 +1,8 @@
 package com.tong.bookstore.main;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.tong.bookstore.BookStoreApplication;
 import com.tong.bookstore.BookStoreNotification;
 import com.tong.bookstore.R;
 import com.tong.bookstore.bookstore.BookStoreFragment;
@@ -25,6 +28,9 @@ import com.tong.bookstore.market.MarketFragment;
 import com.tong.bookstore.mybook.MyBookFragment;
 import com.tong.bookstore.receive.ScreenListener;
 import com.tong.bookstore.setting.SettingFragment;
+import com.tong.bookstore.util.Constants;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -109,6 +115,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.action_about) {
+            HashMap<String, String> hashMap = ((BookStoreApplication) getApplicationContext()).getHashMap();
+            if (hashMap != null) {
+                hashMap.put(Constants.AUTHOR, Constants.AUTHOR + Constants.COLON + Constants.AUTHOR_NAME);
+
+                try {
+                    PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    hashMap.put(Constants.VERSION, Constants.VERSION + Constants.COLON + packageInfo.versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
             startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
