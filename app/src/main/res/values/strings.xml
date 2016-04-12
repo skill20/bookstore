@@ -9,11 +9,13 @@
     <string name="open">open</string>
     <string name="close">close</string>
 
-    <string name ="no_network">Failure load,tap to refresh</string>
+    <string name="no_network">Failure load,tap to refresh</string>
     <string name="goto_amazon">GoTO_Amazon</string>
     <string name="query_book">Query Book</string>
     <string name="clear_database">Clear DataBase</string>
     <string name="exit_point">Press again for exit</string>
     <string name="author">author : tong.zhang</string>
     <string name="version">version : 1.0v</string>
+
+    <string name="get_contact">Get contacts</string>
 </resources>

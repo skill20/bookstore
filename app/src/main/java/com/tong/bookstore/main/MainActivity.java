@@ -12,16 +12,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.tong.bookstore.bookstore.BookStoreFragment;
-import com.tong.bookstore.market.MarketFragment;
-import com.tong.bookstore.database.SQLiteHelper;
-import com.tong.bookstore.mybook.MyBookFragment;
+import com.tong.bookstore.BookStoreNotification;
 import com.tong.bookstore.R;
+import com.tong.bookstore.bookstore.BookStoreFragment;
+import com.tong.bookstore.database.SQLiteHelper;
+import com.tong.bookstore.market.MarketFragment;
+import com.tong.bookstore.mybook.MyBookFragment;
+import com.tong.bookstore.receive.ScreenListener;
 import com.tong.bookstore.setting.SettingFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SettingFragment settingFragment;
     private Fragment tempFragment = null;
     private long lastTime = 0;
+    private ScreenListener screenListener;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         findViewByIds();
         initViews();
+        iniScreenBroadCast();
     }
+
+
+    private void iniScreenBroadCast() {
+        screenListener = new ScreenListener(getApplicationContext());
+        screenListener.begin(screenStateListener);
+    }
+
+    private ScreenListener.ScreenStateListener screenStateListener = new ScreenListener.ScreenStateListener() {
+
+        @Override
+        public void onScreenOn() {
+            Log.i(TAG, "onScreenOn");
+        }
+
+        @Override
+        public void onScreenOff() {
+            BookStoreNotification.cancelAll(getApplicationContext());
+            Log.i(TAG, "onScreenOff");
+        }
+
+        @Override
+        public void onUserPresent() {
+            Log.i(TAG, "onUserPresent");
+        }
+    };
 
     private void initViews() {
         setSupportActionBar(toolBar);
@@ -78,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.action_about) {
-            startActivity(new Intent(this,AboutActivity.class));
+            startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -151,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
             return;
         }
@@ -166,6 +197,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (screenListener != null) {
+            screenListener.unregisterListener();
+            screenListener = null;
+        }
+
         SQLiteDatabase db = SQLiteHelper.getDB(getApplicationContext());
         if (db != null) {
             db.close();

@@ -1,15 +1,20 @@
 package com.tong.bookstore.setting;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.sax.RootElement;
 import android.view.View;
+import android.widget.TextView;
 
+import com.tong.bookstore.BookStoreNotification;
 import com.tong.bookstore.R;
 import com.tong.bookstore.database.DataOperator;
 import com.tong.bookstore.database.SQLiteHelper;
 import com.tong.bookstore.netview.NetworkFragment;
+import com.tong.bookstore.util.ContactHelper;
 import com.tong.bookstore.util.ToastUtil;
+
+import java.util.List;
 
 /**
  * @author tong.zhang
@@ -20,6 +25,8 @@ import com.tong.bookstore.util.ToastUtil;
 public class SettingFragment extends NetworkFragment {
 
     private View clearView;
+    private View contactBtn;
+    private TextView nameText;
 
     @Override
     protected int getContentLayout() {
@@ -31,6 +38,11 @@ public class SettingFragment extends NetworkFragment {
         super.findViewByIds(layout);
         clearView = layout.findViewById(R.id.clear_btn);
         clearView.setOnClickListener(this);
+
+        contactBtn = layout.findViewById(R.id.get_contact_btn);
+        contactBtn.setOnClickListener(this);
+
+        nameText = (TextView) layout.findViewById(R.id.show_name);
     }
 
     @Override
@@ -39,7 +51,28 @@ public class SettingFragment extends NetworkFragment {
         if (R.id.clear_btn == v.getId()) {
             clearDataBase();
 
+        } else if (R.id.get_contact_btn == v.getId()) {
+            getContacts();
         }
+    }
+
+    private void getContacts() {
+        List<ContactHelper.FriendItem> friendItems = ContactHelper.getBriefContactInfo(getContext().getApplicationContext());
+        if (friendItems != null && friendItems.size() > 0) {
+            int size = friendItems.size();
+            StringBuilder stringBuilder = new StringBuilder(size);
+            for (int i = 0; i < size; i++) {
+                if (i == size - 1) {
+                    stringBuilder.append(friendItems.get(i).toString());
+                } else {
+                    stringBuilder.append(friendItems.get(i).toString()).append("--");
+                }
+            }
+            nameText.setText(stringBuilder.toString());
+        } else {
+            ToastUtil.showToast(getContext().getApplicationContext(), "maybe have no contacts!");
+        }
+
     }
 
     private static final int DELETE_DATABASE = 10;
@@ -66,7 +99,9 @@ public class SettingFragment extends NetworkFragment {
                 } else {
                     str = "data base deleted fail!";
                 }
-                ToastUtil.showToast(getContext().getApplicationContext(), str);
+                Context context = getContext().getApplicationContext();
+                ToastUtil.showToast(context, str);
+                BookStoreNotification.cancelAll(context);
             }
         }
     };

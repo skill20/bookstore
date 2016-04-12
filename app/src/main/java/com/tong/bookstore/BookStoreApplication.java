@@ -1,6 +1,9 @@
 package com.tong.bookstore;
 
 import android.app.Application;
+import android.content.Intent;
+
+import com.tong.bookstore.service.BookService;
 
 /**
  * @author tong.zhang
@@ -18,6 +21,12 @@ public class BookStoreApplication extends Application {
     private void initAll() {
         initLog();
         initNetwork();
+        initService();
+    }
+
+
+    private void initService() {
+        startService(new Intent(getApplicationContext(), BookService.class));
     }
 
     private void initLog() {
