@@ -63,6 +63,9 @@ public class ScreenListener {
         mContext.unregisterReceiver(mScreenReceiver);
     }
 
+    /**
+     * ScreenBroadcastReceiver receiver screen event;
+     */
     private class ScreenBroadcastReceiver extends BroadcastReceiver {
         private String action = null;
 

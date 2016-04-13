@@ -26,6 +26,18 @@
         <activity android:name=".main.AboutActivity" />
 
         <service android:name=".service.BookService" />
+
+        <receiver
+            android:name=".widget.BookstoreProvider"
+            android:label="@string/book_store_widget">
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_book_store" />
+        </receiver>
     </application>
 
 </manifest>

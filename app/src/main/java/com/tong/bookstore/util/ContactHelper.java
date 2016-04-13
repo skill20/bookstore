@@ -30,6 +30,11 @@ public class ContactHelper {
         }
     }
 
+    /**
+     * read contact from content provider
+     * @param context
+     * @return
+     */
     public static List<FriendItem> getBriefContactInfo(Context context) {
 
         String ID = ContactsContract.Contacts._ID;

@@ -18,4 +18,6 @@
     <string name="version">version : 1.0v</string>
 
     <string name="get_contact">Get contacts</string>
+    <string name="book_store_widget" >Book store widget</string>
+    <string name="click_to_market">Click to market</string>
 </resources>

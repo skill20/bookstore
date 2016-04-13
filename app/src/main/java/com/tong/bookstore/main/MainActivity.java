@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                     hashMap.put(Constants.VERSION, Constants.VERSION + Constants.COLON + packageInfo.versionName);
                 } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                    Log.getStackTraceString(e);
                 }
 
             }

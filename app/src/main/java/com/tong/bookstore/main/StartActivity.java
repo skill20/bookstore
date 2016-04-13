@@ -40,6 +40,7 @@ public class StartActivity extends AppCompatActivity {
                 case MSG_START_INTO_APP:
                     Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
             }
 
